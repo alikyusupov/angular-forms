@@ -17,7 +17,9 @@ export class AppComponent {
     reviewText: '' || DEFAULT_TEMPLATE
   })
 
-  constructor(private readonly fb: FormBuilder){}
+  constructor(private readonly fb: FormBuilder){
+    this.myForm.controls['reviewText'].disable()
+  }
 
   onSubmit(form: FormGroup): void {
     console.log(form.value)

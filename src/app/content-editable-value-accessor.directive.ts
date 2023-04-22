@@ -43,7 +43,7 @@ export class ContentEditableValueAccessorDirective implements ControlValueAccess
     this.onTouch = fn
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'contenteditable', !isDisabled)
+    this.renderer.setProperty(this.elementRef.nativeElement, 'contentEditable', !isDisabled)
   }
 
 }
