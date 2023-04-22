@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { RxFormGroup, RxFormBuilder } from "@rxweb/reactive-form-validators";
-import Register from "./models/resgister";
-import { TranslateService } from "@ngx-translate/core";
-import { TextValidator } from "./validations-module/validators/text.validator";
-import { FormControl } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { forbiddenWordValidator, forbiddenWordsValidator } from "./validators/forbidden-words.validator";
+
+import { Observable } from "rxjs";
+import { UserService } from "./user.service";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -11,69 +12,45 @@ import { FormControl } from "@angular/forms";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  public languages: string[];
-  public registerFormGroup: RxFormGroup;
-  public register: Register = new Register({});
+  form: FormGroup = this._fb.group({
+    firstname: "",
+    lastname: "",
+    nickname: ['kleot', [forbiddenWordsValidator(['test', 'dummy'])]],
+    addressGroup: this._fb.group({
+      postal: '',
+      address: ''
+    }),
+    phones: this._fb.array([
+      this._fb.group({
+        type: '',
+        phone: ''
+      }),
+    ]),
+    skills: this._fb.group({})
+  })
 
-  public constructor(
-    private formBuilder: RxFormBuilder,
-    private translateService: TranslateService
-  ) {
-    this.setupTranslations();
-    this.getLanguages();
+  types = ["Mobile", "Work", "Personal"]
+  skills$!: Observable<string[]>
+
+  constructor(private readonly userService: UserService, private readonly _fb: FormBuilder){}
+
+  ngOnInit(): void {
+    this.skills$ = this.userService.getSkills().pipe(tap((skills) => {
+      skills.forEach(skill => {
+        (this.form.controls.skills as FormGroup).addControl(skill, new FormControl(false))
+      })
+    }))
   }
 
-  public ngOnInit() {
-    this.registerFormGroup = this.formBuilder.formGroup(
-      this.register
-    ) as RxFormGroup;
-
-    const emailControl = this.registerFormGroup.controls.email as FormControl;
-    const emailValidator = emailControl.validator;
-    emailControl.setValidators([
-      TextValidator.regexMatch(/\S+@\S+\.\S+/, "VALIDATIONS.EMAIL_FORMAT"),
-      TextValidator.hasWords(
-        ["example", "test", "123"],
-        "VALIDATIONS.EMAIL_FORBIDDEN_WORDS"
-      ),
-      emailValidator
-    ]);
+  addPhone(){
+    (this.form.controls.phones as FormArray).insert(0, new FormGroup({
+        type: new FormControl('Mobile'),
+        phone: new FormControl('')
+    }))
   }
 
-  public onLanguageChange({ target }): void {
-    this.translateService.use(target.value);
+  removePhone(i: number){
+    (this.form.controls.phones as FormArray).removeAt(i)
   }
 
-  public getLanguages(): void {
-    this.languages = this.translateService.getLangs();
-  }
-
-  public getCurrentLanguage(): string {
-    return this.translateService.currentLang;
-  }
-
-  public onSubmit(): void {
-    // Show default error with alert message
-    const emailFormControl = this.registerFormGroup.controls.email;
-    if (emailFormControl.errors && emailFormControl.errors.hasWordsError) {
-      const error = emailFormControl.errors.hasWordsError;
-      alert(
-        this.translateService.instant(error.errorTranslation, {
-          values: error.values
-        })
-      );
-    }
-  }
-
-  public onCancel(): void {
-    this.registerFormGroup.resetForm();
-  }
-
-  private setupTranslations() {
-    this.translateService.addLangs(["en", "fr"]);
-    this.translateService.setDefaultLang("en");
-
-    const browserLang = this.translateService.getBrowserLang();
-    this.translateService.use(browserLang.match(/en|fr/) ? browserLang : "en");
-  }
 }
