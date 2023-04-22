@@ -8,6 +8,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { ContentEditableValueAccessorDirective } from './content-editable-value-accessor.directive';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -15,7 +16,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ContentEditableValueAccessorDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule,

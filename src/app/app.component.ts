@@ -1,4 +1,10 @@
+import { FormBuilder, FormGroup } from "@angular/forms";
+
 import { Component } from "@angular/core";
+
+const DEFAULT_TEMPLATE = `
+  <p><strong>Hello world!!!</strong></div>
+`
 
 @Component({
   selector: "app-root",
@@ -6,5 +12,15 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  
+
+  myForm: FormGroup = this.fb.group({
+    reviewText: '' || DEFAULT_TEMPLATE
+  })
+
+  constructor(private readonly fb: FormBuilder){}
+
+  onSubmit(form: FormGroup): void {
+    console.log(form.value)
+    form.reset()
+  }
 }
