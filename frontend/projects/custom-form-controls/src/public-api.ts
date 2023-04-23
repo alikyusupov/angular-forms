@@ -1,4 +1,5 @@
 /*
  * Public API Surface of custom-form-controls
  */
-export * from './lib/custom-form-controls.module';
+export { CustomSelectModule } from './lib/custom-select/custom-select.module';
+
