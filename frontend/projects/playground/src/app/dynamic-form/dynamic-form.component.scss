@@ -1,0 +1,29 @@
+:host {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .action-buttons {
+    max-width: 300px;
+    margin-right: 20px;
+  }
+  .dynamic-form-container {
+    padding: 48px 32px;
+  }
+  .form-heading {
+    margin-bottom: 16px;
+  }
+
+  .form {
+    min-width: 395px;
+  }
+  .form-field {
+    width: 100%;
+    // height: 93px;
+    &--small {
+      max-width: 48%;
+    }
+  }
+  .form-field-inline-group {
+    display: flex;
+    justify-content: space-between;
+  }

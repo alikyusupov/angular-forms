@@ -1,0 +1,24 @@
+<div class="action-buttons">
+    <button type="button" (click)="loadConfig$.next('user')">Load User form</button>
+    <button type="button" (click)="loadConfig$.next('company')">Load Company form</button>
+</div>
+<div *ngIf="config$ | async as config" class="dynamic-form-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <pre class="form-heading">{{ config.description }}</pre>
+        <div *ngFor="let control of config.controls | keyvalue" class="form-field">
+            <ng-container 
+                [ngComponentOutlet]="(dynamicService.resolve(control.value.controlType) | async) || safeNull"
+                [ngComponentOutletInjector]="control.key | formInjector:control.value"
+            ></ng-container>
+            <!-- <ng-container [ngSwitch]="control.value.controlType">
+                <input *ngSwitchCase="'input'" [value]="control.value.value" [formControlName]="control.key">
+                <ng-container *ngSwitchCase="'select'">
+                    <select [formControlName]="control.key" [id]="control.key" [value]="control.value.value">
+                        <option *ngFor="let option of control.value.options" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </ng-container>
+            </ng-container> -->
+        </div>
+        <button [disabled]="form.invalid">Save</button>
+    </form>
+</div>

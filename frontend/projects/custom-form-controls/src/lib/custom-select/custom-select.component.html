@@ -1,1 +1,32 @@
-<p>custom-select works!</p>
+<div class="label">
+    {{ label }}
+</div>
+<div class="control" cdkOverlayOrigin #origin="cdkOverlayOrigin">
+    <ng-container [ngSwitch]="searchable && isOpen">
+        <input 
+            #input 
+            *ngSwitchCase="true" 
+            class="select-search" 
+            placeholder="Start typing..."
+            (input)="onInput($event)"
+        >
+        <span *ngSwitchCase="false" class="selected-value" [class.empty]="!value">{{ displayValue || 'Nothing is selected...' }}</span>
+    </ng-container>
+    <button *ngIf="value" (click)="onClear($event)" class="clear-button">clear</button>
+    <span class="dropdown-icon">🔻</span>
+</div>
+<ng-template 
+    cdkConnectedOverlay 
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="isOpen"
+    [cdkConnectedOverlayOffsetY]="8"
+    [cdkConnectedOverlayOffsetX]="-11"
+    cdkConnectedOverlayHasBackdrop
+    cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+    (backdropClick)="isOpen = false"
+    (detach)="isOpen = false"
+>
+    <div class="panel" [@dropDown] (@dropDown.done)="onAnimationDone($event)">
+        <ng-content></ng-content>
+    </div>
+</ng-template>

@@ -1,18 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomSelectComponent } from './custom-select.component';
-
-
+import { NgModule } from '@angular/core';
+import { OptionComponent } from './option/option.component'
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
-    CustomSelectComponent
+    CustomSelectComponent,
+    OptionComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    OverlayModule,
   ],
   exports: [
-    CustomSelectComponent
+    CustomSelectComponent,
+    OptionComponent
   ]
 })
 export class CustomSelectModule { }

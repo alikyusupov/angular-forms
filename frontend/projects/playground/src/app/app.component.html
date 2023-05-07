@@ -1,1 +1,19 @@
-<lib-custom-select></lib-custom-select>
+<!-- <lib-custom-select 
+    (searchChanged)="onSearchChanged($event)"
+    label="Select item"
+    multiple
+    [formControl]="selectValue"
+    [displayWith]="displayWithFn"
+    [compareWith]="compareWithFn"
+    [searchable]="true"
+>
+    <lib-option 
+        *ngFor="let user of filteredUsers"
+        [value]="user"
+        [disabled]="user.disabled"
+        disabledReason="Option is stale"
+    >
+    {{ user.name }}
+    </lib-option>
+</lib-custom-select> -->
+<dynamic-form></dynamic-form>
