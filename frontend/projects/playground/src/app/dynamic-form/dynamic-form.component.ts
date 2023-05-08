@@ -5,6 +5,7 @@ import { Observable, Subject, switchMap, tap } from 'rxjs';
 
 import { DynamicFormService } from './dynamic-form.service';
 import { HttpClient } from '@angular/common/http';
+import { comparatorFn } from '../shared/base-control/base-control';
 
 @Component({
   selector: 'dynamic-form',
@@ -17,6 +18,8 @@ export class DynamicFormComponent implements OnInit {
   form!: FormGroup
   config$!: Observable<DynamicFormConfig>
   loadConfig$ = new Subject<'user' | 'company'>()
+
+  comparatorFn = comparatorFn
 
   constructor(private readonly http: HttpClient, public dynamicService: DynamicFormService) { }
 

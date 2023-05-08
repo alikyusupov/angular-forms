@@ -1,11 +1,10 @@
-import { BaseControl, viewProvider } from './base-dynamic-control';
-
+import { BaseControl } from '../../shared/base-control/base-control';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-dynamic-select',
-  viewProviders:[viewProvider],
+  selector: 'my-select',
   template: `
+  <ng-container [formGroup]="formGroup">
   <label [for]="control.key">{{control.config.label}}</label>
     <select [formControlName]="control.key" [id]="control.key" [value]="control.config.value">
       <option
@@ -15,6 +14,7 @@ import { Component } from '@angular/core';
         {{ option.label }}
       </option>
     </select>
+  </ng-container>
   `,
 })
-export class DynamicSelectComponent extends BaseControl {}
+export class SelectComponent extends BaseControl {}

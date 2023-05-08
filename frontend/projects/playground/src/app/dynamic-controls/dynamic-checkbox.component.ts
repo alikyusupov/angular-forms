@@ -1,13 +1,13 @@
-import { BaseControl } from './base-dynamic-control';
+import { BaseControl, viewProvider } from './base-dynamic-control';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-checkbox',
+  viewProviders:[viewProvider],
   template: `
-    <ng-container [formGroup]="formGroup">
     <label [for]="control.key">{{control.config.label}}</label>
       <input type="checkbox" [formControlName]="control.key" [checked]="control.config.value">
-    </ng-container>
   `,
   styles:[':host{ margin-top: 145px }']
  

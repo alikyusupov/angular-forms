@@ -2,7 +2,7 @@ import { BaseControl } from '../../shared/base-control/base-control';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'checkbox',
+  selector: 'my-checkbox',
   template: `
     <ng-container [formGroup]="formGroup">
     <label [for]="control.key">{{control.config.label}}</label>
@@ -12,4 +12,4 @@ import { Component } from '@angular/core';
   styles:[':host{ margin-top: 145px }']
  
 })
-export class DynamicCheckboxComponent extends BaseControl{}
+export class CheckboxComponent extends BaseControl{}

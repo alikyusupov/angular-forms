@@ -1,7 +1,12 @@
-import { Directive, HostBinding, Inject, Type } from "@angular/core";
-import { ControlContainer, FormGroup } from "@angular/forms";
+import { Directive, HostBinding, inject, Inject, InjectFlags, StaticProvider, Type } from "@angular/core";
+import { ControlContainer } from "@angular/forms";
 import { DynamicFormService } from "../dynamic-form/dynamic-form.service";
 import { ControlData, CONTROL_DATA } from "../dynamic-form/form-injector.pipe";
+
+export const viewProvider: StaticProvider = {
+    provide: ControlContainer,
+    useFactory: () => inject(ControlContainer, InjectFlags.SkipSelf)
+}
 
 @Directive()
 export class BaseControl {
@@ -12,12 +17,8 @@ export class BaseControl {
 
     constructor(
         @Inject(CONTROL_DATA) public control: ControlData, 
-        private readonly parentFormGroup: ControlContainer,
         public dynamicService: DynamicFormService
     ) {}
 
-    get formGroup(){
-        return this.parentFormGroup.control as FormGroup
-    }
-
+    
 }

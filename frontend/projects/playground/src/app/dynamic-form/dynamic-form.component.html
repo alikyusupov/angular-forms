@@ -5,7 +5,7 @@
 <div *ngIf="config$ | async as config" class="dynamic-form-container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <pre class="form-heading">{{ config.description }}</pre>
-        <div *ngFor="let control of config.controls | keyvalue" class="form-field">
+        <div *ngFor="let control of config.controls | keyvalue: comparatorFn" class="form-field">
             <ng-container 
                 [ngComponentOutlet]="(dynamicService.resolve(control.value.controlType) | async) || safeNull"
                 [ngComponentOutletInjector]="control.key | formInjector:control.value"

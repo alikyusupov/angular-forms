@@ -9,7 +9,8 @@
             "validators": {
                 "required": true,
                 "minLength": 2
-            }
+            },
+            "order": 0
         },
         "email": {
             "controlType": "input",
@@ -18,7 +19,8 @@
             "value": "",
             "validators": {
                 "email": true
-            }
+            },
+            "order": 1
         },
         "role": {
             "controlType": "select",
@@ -37,7 +39,8 @@
                     "label": "Guest",
                     "value": "guest"
                 }
-            ]
+            ],
+            "order": 2
         },
         "socialProfiles": {
             "controlType": "group",
@@ -47,19 +50,22 @@
                     "controlType": "input",
                     "label": "YouTube",
                     "value": null,
-                    "type": "text"
+                    "type": "text",
+                    "order": 0
                 },
                 "twitter": {
                     "controlType": "input",
                     "label": "Twitter",
                     "value": null,
-                    "type": "text"
+                    "type": "text",
+                    "order": 1
                 },
                 "instagram": {
                     "controlType": "input",
                     "label": "Instagram",
                     "value": null,
-                    "type": "text"
+                    "type": "text",
+                    "order": 2
                 }
             }
         },
@@ -69,8 +75,8 @@
             "value": false,
             "validators": {
                 "requiredTrue": true
-            }
-
+            },
+            "order": 3
         }
     }
 }
