@@ -1,6 +1,7 @@
 import { BaseControl, viewProvider } from './base-dynamic-control';
 import { Component, HostBinding } from '@angular/core';
 import { comparatorFn } from '../shared/base-control/base-control';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-group',
@@ -22,5 +23,5 @@ import { comparatorFn } from '../shared/base-control/base-control';
 export class DynamicGroupComponent extends BaseControl {
   @HostBinding('class') override hostClass = ''
   comparatorFn = comparatorFn
-
+  override formControl: AbstractControl = new FormGroup({})
 }

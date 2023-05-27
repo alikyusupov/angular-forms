@@ -8,7 +8,7 @@
             "value": "",
             "validators": {
                 "required": true,
-                "minLength": 2
+                "minLength": 5
             },
             "order": 0
         },

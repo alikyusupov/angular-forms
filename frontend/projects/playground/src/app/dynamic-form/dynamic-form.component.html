@@ -3,13 +3,17 @@
     <button type="button" (click)="loadConfig$.next('company')">Load Company form</button>
 </div>
 <div *ngIf="config$ | async as config" class="dynamic-form-container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <pre class="form-heading">{{ config.description }}</pre>
-        <div *ngFor="let control of config.controls | keyvalue: comparatorFn" class="form-field">
+    <form [formGroup]="config.form" (ngSubmit)="onSubmit(config.form)">
+        <pre class="form-heading">{{ config.config.description }}</pre>
+        <div *ngFor="let control of config.config.controls| keyvalue: comparatorFn" class="form-field">
             <ng-container 
                 [ngComponentOutlet]="(dynamicService.resolve(control.value.controlType) | async) || safeNull"
                 [ngComponentOutletInjector]="control.key | formInjector:control.value"
             ></ng-container>
+            <!-- <input-error
+                *ngIf="config.form.get(control.key)?.dirty"
+                [errors]="config.form.get(control.key)?.errors">
+            </input-error> -->
             <!-- <ng-container [ngSwitch]="control.value.controlType">
                 <input *ngSwitchCase="'input'" [value]="control.value.value" [formControlName]="control.key">
                 <ng-container *ngSwitchCase="'select'">
@@ -19,6 +23,6 @@
                 </ng-container>
             </ng-container> -->
         </div>
-        <button [disabled]="form.invalid">Save</button>
+        <button [disabled]="config.form.invalid">Save</button>
     </form>
 </div>

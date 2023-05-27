@@ -10,8 +10,11 @@ import { DynamicSelectComponent } from './dynamic-controls/dynamic-select.compon
 import { FormInjectorModule } from './shared/injector-pipe/injector.pipe.module';
 import { FormInjectorPipe } from './dynamic-form/form-injector.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { InputErrorComponent } from './core/input-error/input-error.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorPipe } from './core/input-error/error.pipe';
+import { ValidatorMessageDirective } from './core/input-error/validator-message.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     DynamicFormComponent,
     DynamicGroupComponent,
     DynamicInputComponent,
-    DynamicSelectComponent
+    DynamicSelectComponent,
+    InputErrorComponent,
+    ErrorPipe,
+    ValidatorMessageDirective,
   ],
   imports: [
     BrowserModule,
